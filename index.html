@@ -4,75 +4,84 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Bao</title>
-<meta name="description" content="Skip the scroll. Text Bao on WhatsApp and get one restaurant pick you can trust in San Francisco, plus what to order.">
+<meta name="description" content="Skip the scroll. Bao picks where to eat in San Francisco, and what to order.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;500;600;700;800&family=Figtree:wght@400;500;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@500;700;800&family=Figtree:wght@400;500;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 <meta name="color-scheme" content="light dark">
 <style>
-:root{--bg:#FFFFFF;--ink:#111111;--sub:#3A3A36;--muted:#555550;--btn-bg:#111111;--btn-fg:#FFFFFF;--shadow:rgba(17,17,17,.16)}
-@media (prefers-color-scheme: dark){:root{--bg:#141413;--ink:#F4F1EA;--sub:#C9C4BA;--muted:#A39E94;--btn-bg:#F4F1EA;--btn-fg:#111111;--shadow:rgba(0,0,0,.55)}}
-body{margin:0;background:var(--bg);overflow-x:hidden}
-a{color:var(--muted)}a:hover{color:var(--ink)}
-button:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-img{max-width:100%}
+:root{--bg:#FFFFFF;--ink:#111111;--muted:#555550;--btn-bg:#111111;--btn-fg:#FFFFFF;--shadow:rgba(17,17,17,.16)}
+@media (prefers-color-scheme: dark){:root{--bg:#141413;--ink:#F4F1EA;--muted:#A39E94;--btn-bg:#F4F1EA;--btn-fg:#111111;--shadow:rgba(0,0,0,.55)}}
 html{overflow-x:clip}
-.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,440px);gap:40px 72px;align-items:center}
-.food{position:absolute;transform:rotate(var(--r));filter:drop-shadow(0 18px 20px var(--shadow));animation:bob 6s ease-in-out infinite}
-@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -14px}}
-@media (prefers-reduced-motion: reduce){.food{animation:none}}
-@media (max-width: 860px){.hero{grid-template-columns:minmax(0,1fr);gap:28px}}
-@media (max-width: 600px){
-nav{padding:12px 0 !important}
-.hero{align-content:center;padding:4px 0 8px !important}
-.hero h1{font-size:42px !important}
-.sub{font-size:17px !important;line-height:1.5 !important}
-.cta{width:100%}
-.foodbox{max-width:none !important;aspect-ratio:auto !important;height:270px}
-.food{filter:drop-shadow(0 14px 16px var(--shadow))}
-.f1{left:0 !important;top:0 !important;width:44% !important}
-.f3{right:0 !important;left:auto !important;top:8px !important;width:44% !important}
-.f2{left:24% !important;top:100px !important;width:52% !important}
-footer{padding:8px 0 16px !important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Figtree,'PingFang SC','Noto Sans SC',sans-serif}
+a{color:var(--ink)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.page{box-sizing:border-box;min-height:100vh;min-height:100svh;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.sky{position:absolute;inset:0;pointer-events:none}
+.food{position:absolute;left:var(--l);top:var(--t);width:var(--w);transform:rotate(var(--r));filter:drop-shadow(0 22px 22px var(--shadow));animation:float ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(var(--f)) rotate(calc(var(--r) + 4deg))}}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 28px}
+.logo{display:flex;align-items:center;gap:6px;font-family:'Shantell Sans','ZCOOL KuaiLe',cursive;font-size:24px;font-weight:700}
+.lang{min-width:44px;height:44px;border:0;background:transparent;font:inherit;font-size:14px;color:var(--muted);cursor:pointer}
+.pill{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--btn-bg);color:var(--btn-fg);font-weight:600;text-decoration:none}
+.navcta{margin-left:8px;height:44px;padding:0 20px;font-size:15px}
+main{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;padding:24px 20px 64px}
+.word{display:block;width:clamp(300px,46vw,600px);height:auto;overflow:visible}
+h1{margin:8px 0 0;font-size:clamp(21px,2.3vw,30px);line-height:1.25;font-weight:500;letter-spacing:-.01em;max-width:24ch;text-wrap:balance}
+.ctas{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:8px}
+.cta{height:56px;padding:0 32px;font-size:17px}
+.code{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:600;text-underline-offset:4px}
+footer{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;font-size:13px;color:var(--muted);padding:12px 20px 20px}
+footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
+@media (max-width:600px){
+nav{padding:10px 16px}
+.navcta{display:none}
+.dsk{display:none}
+.page{min-height:max(100svh,780px)}
+.food{left:var(--ml);top:var(--mt);width:var(--mw);filter:drop-shadow(0 14px 14px var(--shadow))}
+main{justify-content:flex-start;padding:16vh 20px 40px}
+.word{width:min(300px,77vw)}
 }
+@media (prefers-reduced-motion: reduce){.food{animation:none}}
 </style>
 </head>
 <body>
-<div style="box-sizing: border-box; min-height: 100vh; min-height: 100svh; background: var(--bg); color: var(--ink); font-family: Figtree, 'PingFang SC', 'Noto Sans SC', sans-serif; padding: 0 max(20px, env(safe-area-inset-right, 0px)) 0 max(20px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column">
-<div style="width: 100%; max-width: 1160px; margin: 0 auto; flex: 1; display: flex; flex-direction: column">
-
-<nav style="display: flex; align-items: center; justify-content: space-between; padding: 16px 0">
-<div style="display: flex; align-items: center; gap: 6px; font-family: 'Shantell Sans', 'ZCOOL KuaiLe', cursive; font-size: 26px; font-weight: 700">
-<svg width="38" height="38" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 36c0-13 10-22 22-22s22 9 22 22c0 6-8 10-22 10S10 42 10 36z"></path><path d="M32 15c-1-3 1-6 4-6M32 15c-5 2-8 5-10 9M32 15c-1.5 3-1.5 6 0 9M32 15c5 2 8 5 10 9"></path><circle cx="25" cy="32" r="1.8" fill="currentColor" stroke="none"></circle><circle cx="39" cy="32" r="1.8" fill="currentColor" stroke="none"></circle><path d="M30 36q2 2 4 0"></path></svg>
-<span>bao</span>
+<div class="page">
+<div class="sky" aria-hidden="true">
+<img class="food" src="img/dishes/pistachio-croissant.webp" alt="" style="--l:4%;--t:9%;--w:clamp(90px,11.72vw,172px);--r:-8deg;--f:-11px;animation-duration:6.5s;animation-delay:-0.0s;--ml:-5%;--mt:6%;--mw:26.67vw">
+<img class="food" src="img/dishes/strawberry-bingsu.webp" alt="" style="--l:10%;--t:30%;--w:clamp(77px,10.00vw,147px);--r:5deg;--f:-11px;animation-duration:7.2s;animation-delay:-1.7s;--ml:36%;--mt:69%;--mw:21.54vw">
+<img class="food dsk" src="img/dishes/basque-cheesecake.webp" alt="" style="--l:2%;--t:50%;--w:clamp(72px,9.38vw,138px);--r:6deg;--f:-11px;animation-duration:7.9s;animation-delay:-3.4s">
+<img class="food" src="img/dishes/ube-latte.webp" alt="" style="--l:19%;--t:52%;--w:clamp(59px,7.66vw,113px);--r:-6deg;--f:-10px;animation-duration:8.6s;animation-delay:-5.1s;--ml:-4%;--mt:39%;--mw:15.90vw">
+<img class="food" src="img/dishes/margherita-pizza.webp" alt="" style="--l:-3%;--t:65%;--w:clamp(132px,17.19vw,253px);--r:-7deg;--f:-13px;animation-duration:9.3s;animation-delay:-6.8s;--ml:-10%;--mt:64%;--mw:38.46vw">
+<img class="food" src="img/dishes/double-cheeseburger.webp" alt="" style="--l:13%;--t:77%;--w:clamp(96px,12.50vw,184px);--r:5deg;--f:-12px;animation-duration:7.0s;animation-delay:-1.5s;--ml:71%;--mt:64%;--mw:31.79vw">
+<img class="food" src="img/dishes/matcha-soft-serve.webp" alt="" style="--l:22%;--t:3%;--w:clamp(48px,6.25vw,92px);--r:-5deg;--f:-10px;animation-duration:7.7s;animation-delay:-3.2s;--ml:33%;--mt:2%;--mw:12.31vw">
+<img class="food dsk" src="img/dishes/tonkotsu-ramen.webp" alt="" style="--l:60%;--t:4%;--w:clamp(77px,10.00vw,147px);--r:5deg;--f:-11px;animation-duration:8.4s;animation-delay:-4.9s">
+<img class="food" src="img/dishes/thai-iced-tea.webp" alt="" style="--l:74%;--t:13%;--w:clamp(53px,6.88vw,101px);--r:7deg;--f:-10px;animation-duration:9.1s;animation-delay:-6.6s;--ml:58%;--mt:5%;--mw:14.87vw">
+<img class="food" src="img/dishes/xiaolongbao.webp" alt="" style="--l:84%;--t:10%;--w:clamp(98px,12.81vw,189px);--r:-5deg;--f:-12px;animation-duration:6.8s;animation-delay:-1.3s;--ml:76%;--mt:8%;--mw:26.67vw">
+<img class="food" src="img/dishes/sushi-nigiri-set.webp" alt="" style="--l:76%;--t:35%;--w:clamp(74px,9.69vw,143px);--r:8deg;--f:-11px;animation-duration:7.5s;animation-delay:-3.0s;--ml:86%;--mt:40%;--mw:15.90vw">
+<img class="food dsk" src="img/dishes/souffle-pancakes.webp" alt="" style="--l:88%;--t:41%;--w:clamp(90px,11.72vw,172px);--r:4deg;--f:-11px;animation-duration:8.2s;animation-delay:-4.7s">
+<img class="food" src="img/dishes/oysters.webp" alt="" style="--l:71%;--t:63%;--w:clamp(103px,13.44vw,198px);--r:-4deg;--f:-12px;animation-duration:8.9s;animation-delay:-6.4s;--ml:74%;--mt:78%;--mw:25.64vw">
+<img class="food dsk" src="img/dishes/churros.webp" alt="" style="--l:86%;--t:75%;--w:clamp(112px,14.53vw,214px);--r:8deg;--f:-12px;animation-duration:6.6s;animation-delay:-1.1s">
+<img class="food" src="img/dishes/bubble-waffle-cone.webp" alt="" style="--l:27%;--t:76%;--w:clamp(38px,5.00vw,74px);--r:-6deg;--f:-10px;animation-duration:7.3s;animation-delay:-2.8s;--ml:4%;--mt:78%;--mw:12.82vw">
+<img class="food" src="img/dishes/mochi-assortment.webp" alt="" style="--l:57%;--t:83%;--w:clamp(83px,10.78vw,159px);--r:-3deg;--f:-11px;animation-duration:8.0s;animation-delay:-4.5s;--ml:44%;--mt:80%;--mw:25.64vw">
 </div>
-<div style="display: flex">
-<button style="min-width: 44px; height: 44px; border: 0; background: transparent; font: inherit; font-size: 14px; color: var(--muted); cursor: pointer">中文</button>
-<button style="min-width: 44px; height: 44px; border: 0; background: transparent; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer">EN</button>
+<nav>
+<div class="logo"><svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 36c0-13 10-22 22-22s22 9 22 22c0 6-8 10-22 10S10 42 10 36z"></path><path d="M32 15c-1-3 1-6 4-6M32 15c-5 2-8 5-10 9M32 15c-1.5 3-1.5 6 0 9M32 15c5 2 8 5 10 9"></path><circle cx="25" cy="32" r="1.8" fill="currentColor" stroke="none"></circle><circle cx="39" cy="32" r="1.8" fill="currentColor" stroke="none"></circle><path d="M30 36q2 2 4 0"></path></svg><span>bao</span></div>
+<div style="display:flex;align-items:center;gap:4px">
+<button class="lang">中文</button>
+<button class="lang" style="font-weight:700;color:var(--ink)">EN</button>
+<a class="pill navcta" href="#">Get on the list</a>
 </div>
 </nav>
-
-<main class="hero" style="flex: 1; padding: 8px 0 32px">
-
-<div style="min-width: 0; display: flex; flex-direction: column; gap: 24px">
-<h1 style="margin: 0; font-family: 'Shantell Sans', 'ZCOOL KuaiLe', cursive; font-size: clamp(40px, 5.4vw, 70px); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em">Skip the scroll.<br>Bao picks<br><span style="position: relative; display: inline-block; white-space: nowrap">where to eat.<svg viewBox="0 0 400 130" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: -16px; top: 2px; width: calc(100% + 32px); height: calc(100% + 6px); overflow: visible; pointer-events: none"><path d="M40 20 C 140 2, 320 4, 380 30 C 410 60, 380 112, 250 122 C 140 130, 20 118, 10 76 C 2 44, 60 18, 160 12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path></svg></span></h1>
-<p class="sub" style="margin: 0; font-size: 19px; line-height: 1.55; color: var(--sub); max-width: 36ch">Text Bao on WhatsApp. Get picks you trust in SF, and exactly what to order.</p>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px">
-<a class="cta" href="#" style="height: 58px; padding: 0 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-size: 17px; font-weight: 600; text-decoration: none">Get early access</a>
+<main>
+<svg class="word" role="img" aria-label="bao" viewBox="0 0 620 250" focusable="false"><text x="300" y="196" text-anchor="middle" font-family="'Shantell Sans', 'ZCOOL KuaiLe', cursive" font-weight="800" font-size="230" letter-spacing="-4" fill="currentColor">bao</text></svg>
+<h1>Skip the scroll. Bao picks where to eat in SF, and what to order.</h1>
+<div class="ctas">
+<a class="pill cta" href="#">Get on the list</a>
+<a class="code" href="#">Have a code?</a>
 </div>
-</div>
-
-<div class="foodbox" aria-hidden="true" style="position: relative; width: 100%; max-width: 460px; aspect-ratio: 460 / 540; justify-self: center">
-<img class="food f1" src="img/dish-1.webp" alt="" style="left: 0; top: 2%; width: 44%; --r: -10deg; animation-delay: -1s">
-<img class="food f3" src="img/dish-3.webp" alt="" style="right: 0; top: 22%; width: 46%; --r: 12deg; animation-delay: -3.5s">
-<img class="food f2" src="img/dish-2.webp" alt="" style="left: 12%; top: 52%; width: 54%; --r: -4deg; animation-delay: -2s">
-</div>
-
 </main>
-
-<footer style="display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13px; color: var(--muted); padding: 12px 0 20px"><span>© 2026 Bao</span><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="sms-terms.html">SMS terms</a><a href="mailto:[CONTACT EMAIL]">[CONTACT EMAIL]</a></footer>
-
-</div>
+<footer><span>© 2026 Bao</span><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="sms-terms.html">SMS terms</a><a href="mailto:[CONTACT EMAIL]">[CONTACT EMAIL]</a></footer>
 </div>
 </body>
 </html>
