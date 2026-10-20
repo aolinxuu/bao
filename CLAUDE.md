@@ -4,12 +4,13 @@ Bao is a WhatsApp restaurant picker for San Francisco. This repo is its pre-laun
 Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/Instagram food content. Keep dating out of the copy (planned for v2).
 
 ## Where things live
-- **Live site:** https://aolinxuu.github.io/bao/ (GitHub Pages from `main` root). Moving to Vercel so the signup API works; GitHub Pages can't run `api/`.
+- **Live site:** https://bao-beryl.vercel.app (Vercel project `bao` under "Aolin's projects", deploys `main` on push). GitHub Pages (aolinxuu.github.io/bao) can't run `api/`; turn it off.
 - **Code:** `index.html` is the page (a `<style>` block plus a small script for the join dialog). `api/join.js` is the one Vercel Function.
 - **Signup:** "Join the waitlist" asks only for a WhatsApp number; "Have a code?" adds an access-code field. A valid code returns a `wa.me` link to Bao; no code puts them on the waitlist; a wrong code shows "That code didn't work."
   - Valid codes: env `INVITE_CODE` (1020) or any member of the Redis set `invite_codes` (friend referrals; add with `SADD invite_codes <code>`).
-  - Storage: Upstash Redis via the Vercel Marketplace (`KV_REST_API_URL/TOKEN`). Hash `signup:<phone digits>` = {phone, code, status, at}; sorted set `signups` by join time.
-  - Env vars: `INVITE_CODE=1020`, `BAO_WHATSAPP=15556733257` (digits only, unverified). Floating dish cutouts are in `img/dishes/<dish>.webp` (16 files; the older `img/dish-1..3.webp` are unused).
+  - Storage: Upstash Redis `upstash-kv-cobalt-cable` (free plan) via the Vercel Marketplace (`KV_REST_API_URL/TOKEN`). Hash `signup:<phone digits>` = {phone, code, status, at}; sorted set `signups` by join time.
+  - Env vars: `INVITE_CODE=1020`, `BAO_WHATSAPP=15556733257` (digits only, unverified).
+- **Images:** floating dish cutouts are in `img/dishes/<dish>.webp` (16 files; the older `img/dish-1..3.webp` are unused).
 - **Design source of truth:** Design canvas "Bao landing page" — https://claude.ai/artifact/KESaMLiFukqjvWwEXQynWL
   - `Floating.dc.html` — Desktop, floating dishes (matches live)
   - `Phone-floating.dc.html` — Phone, floating dishes (matches live at ≤600px)
@@ -26,10 +27,9 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 - User preference: simpler and fewer words every round; apply requests directly; lead with the answer, short, bullets.
 
 ## Open items
-1. Deploy to Vercel, add Upstash Redis and the env vars, then point people at the Vercel URL (or a custom domain) and turn off GitHub Pages.
+1. Turn off GitHub Pages; add a custom domain in Vercel.
 2. 中文/EN toggle is inert (or drop it — audience is now US tech workers).
 3. Placeholder: `[CONTACT EMAIL]` in the footer (Privacy/Terms/SMS terms pages exist).
-4. No custom domain yet (repo Settings › Pages, then DNS).
 5. Strategy: WhatsApp vs iMessage/SMS for a US audience.
 
 ## Deploy notes
