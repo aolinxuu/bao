@@ -9,7 +9,7 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 - **Signup:** "Join the waitlist" asks only for a WhatsApp number; "Have a code?" adds an access-code field. A valid code returns a `wa.me` link to Bao; no code puts them on the waitlist; a wrong code shows "That code didn't work."
   - Valid codes: env `INVITE_CODE` (1020) or any member of the Redis set `invite_codes` (friend referrals; add with `SADD invite_codes <code>`).
   - Storage: Upstash Redis `upstash-kv-cobalt-cable` (free plan) via the Vercel Marketplace (`KV_REST_API_URL/TOKEN`). Hash `signup:<phone digits>` = {phone, code, status, at}; sorted set `signups` by join time.
-  - Env vars: `INVITE_CODE=1020`, `BAO_WHATSAPP=15556733257` (digits only, unverified).
+  - Env vars: `INVITE_CODE=1020`, `BAO_WHATSAPP=16283016836` (digits only; Twilio number registered on WhatsApp as "Bao", phone number ID 1389678297560424; the old Meta test number was 15556733257).
 - **Images:** floating dish cutouts are in `img/dishes/<dish>.webp` (16 files; the older `img/dish-1..3.webp` are unused).
 - **Design source of truth:** Design canvas "Bao landing page" — https://claude.ai/artifact/KESaMLiFukqjvWwEXQynWL
   - `Floating.dc.html` — Desktop, floating dishes (matches live)
