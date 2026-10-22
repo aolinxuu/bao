@@ -45,6 +45,9 @@ dialog .cta:disabled{opacity:.6;cursor:default}
 .msg{margin:0;min-height:1.3em;font-size:14px;color:var(--muted)}
 .close{position:absolute;top:12px;right:12px;width:44px;height:44px;border:0;background:none;color:var(--muted);font-size:24px;cursor:pointer}
 .done{margin:0;font-size:17px;line-height:1.4}
+dialog label.sms{flex-direction:row;align-items:flex-start;gap:10px;font-size:12px;font-weight:400;line-height:1.45;color:var(--muted)}
+dialog .sms input{width:18px;height:18px;flex:none;margin:1px 0 0;padding:0;accent-color:var(--ink)}
+dialog .sms a{color:var(--ink)}
 footer{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;font-size:13px;color:var(--muted);padding:12px 20px 20px}
 footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 @media (max-width:600px){
@@ -101,13 +104,14 @@ main{justify-content:flex-start;padding:16vh 20px 40px}
 <button class="close" aria-label="Close" data-close>×</button>
 <h2 id="join-title">Join the waitlist</h2>
 <form>
-<label>WhatsApp number<input name="phone" type="tel" autofocus autocomplete="tel" placeholder="+1 415 555 0123" required></label>
+<label>Phone number<input name="phone" type="tel" autofocus autocomplete="tel" placeholder="+1 415 555 0123" required></label>
 <button type="button" class="code" data-show-code>Have a code?</button>
 <label hidden>Access code<input name="code" autocomplete="off"></label>
+<label class="sms"><input type="checkbox" name="sms" value="yes"><span>Text me about Bao by SMS. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. <a href="sms-terms.html" target="_blank">SMS terms</a></span></label>
 <p class="msg" role="status"></p>
 <button class="pill cta">Join</button>
 </form>
-<p class="done" hidden>You're on the waitlist. We'll message you on WhatsApp when it's your turn.</p>
+<p class="done" hidden>You're on the waitlist. We'll message you when it's your turn.</p>
 </dialog>
 <script>
 const dlg=document.getElementById('join'),form=dlg.querySelector('form'),codeBtn=form.querySelector('[data-show-code]'),codeField=form.code.parentElement

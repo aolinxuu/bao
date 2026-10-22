@@ -5,9 +5,11 @@ export async function POST(request) {
   const phone = String(body.phone ?? '').trim()
   const code = String(body.code ?? '').trim()
   const digits = phone.replace(/\D/g, '')
+  // The SMS box starts unchecked; only a checked box is consent to texts.
+  const sms = body.sms === 'yes' ? 'yes' : 'no'
 
   if (digits.length < 7 || digits.length > 15 || /[^\d\s()+.-]/.test(phone)) {
-    return Response.json({ ok: false, error: 'Check your WhatsApp number.' }, { status: 400 })
+    return Response.json({ ok: false, error: 'Check your phone number.' }, { status: 400 })
   }
 
   const redis = new Redis({
@@ -21,7 +23,7 @@ export async function POST(request) {
   }
 
   // Keyed by phone digits, so joining twice updates the same entry.
-  await redis.hset(`signup:${digits}`, { phone, code, status: valid ? 'invited' : 'waitlist', at: new Date().toISOString() })
+  await redis.hset(`signup:${digits}`, { phone, code, sms, status: valid ? 'invited' : 'waitlist', at: new Date().toISOString() })
   await redis.zadd('signups', { nx: true }, { score: Date.now(), member: digits })
 
   if (!valid) return Response.json({ ok: true })
