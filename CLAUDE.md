@@ -4,7 +4,7 @@ Goodo (renamed from Bao on Oct 22, 2026; entity plan: Hurstville Labs, Inc. d/b/
 Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/Instagram food content. Keep dating out of the copy (planned for v2).
 
 ## Where things live
-- **Live site:** https://getgoodo.com (redirects to www.getgoodo.com; DNS at Squarespace via Google Workspace: A @ 216.198.79.1, CNAME www → Vercel; also bao-beryl.vercel.app; Vercel project `bao` under "Aolin's projects", deploys `main` on push). GitHub Pages (aolinxuu.github.io/bao) can't run `api/`; turn it off.
+- **Live site:** https://getgoodo.com (primary; www.getgoodo.com 308-redirects to it; DNS at Squarespace via Google Workspace: A @ 216.198.79.1, CNAME www → Vercel; also bao-beryl.vercel.app; Vercel project `bao` under "Aolin's projects", deploys `main` on push). GitHub Pages (aolinxuu.github.io/bao) can't run `api/`; turn it off.
 - **Code:** `index.html` is the page (a `<style>` block plus a small script for the join dialog). `api/join.js` is the one Vercel Function.
 - **Signup:** "Join the waitlist" asks only for a WhatsApp number; "Have a code?" adds an access-code field. A valid code returns a `wa.me` link to Goodo; no code puts them on the waitlist; a wrong code shows "That code didn't work."
   - Valid codes: env `INVITE_CODE` (1020) or any member of the Redis set `invite_codes` (friend referrals; add with `SADD invite_codes <code>`).
