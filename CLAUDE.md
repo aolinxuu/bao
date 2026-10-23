@@ -30,7 +30,7 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, env var `BAO_WHATSAPP`, WhatsApp display name. Planned domain: getgoodo.com.
 1. Turn off GitHub Pages; add a custom domain in Vercel.
 2. 中文/EN toggle is inert (or drop it — audience is now US tech workers).
-3. Placeholder: `[CONTACT EMAIL]` in the footer (Privacy/Terms/SMS terms pages exist).
+3. Contact email filled: hello@ (footer, questions), privacy@ (data deletion), support@ (SMS HELP). Still placeholders: `[LEGAL NAME]`, `[ADDRESS]` (fill after incorporation).
 5. Strategy: WhatsApp vs iMessage/SMS for a US audience.
 
 ## Deploy notes
