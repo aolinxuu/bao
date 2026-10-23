@@ -29,7 +29,7 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 ## Open items
 0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, env var `BAO_WHATSAPP`, WhatsApp display name. Planned domain: getgoodo.com.
 1. Turn off GitHub Pages. (Custom domain getgoodo.com added Oct 23, 2026.)
-2. 中文/EN toggle is inert (or drop it — audience is now US tech workers).
+2. 中文/EN toggle removed Oct 23, 2026 (US audience).
 3. Contact email filled: hello@ (footer, questions), privacy@ (data deletion), support@ (SMS HELP). Still placeholders: `[LEGAL NAME]`, `[ADDRESS]` (fill after incorporation).
 5. Strategy: WhatsApp vs iMessage/SMS for a US audience.
 
