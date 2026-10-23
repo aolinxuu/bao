@@ -27,6 +27,6 @@ export async function POST(request) {
   await redis.zadd('signups', { nx: true }, { score: Date.now(), member: digits })
 
   if (!valid) return Response.json({ ok: true })
-  const text = encodeURIComponent(`Hi Bao! My code is ${code}`)
+  const text = encodeURIComponent(`Hi Goodo! My code is ${code}`)
   return Response.json({ ok: true, url: `https://wa.me/${process.env.BAO_WHATSAPP}?text=${text}` })
 }

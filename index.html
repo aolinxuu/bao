@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bao</title>
-<meta name="description" content="Skip the scroll. Bao picks where to eat in San Francisco, and what to order.">
+<title>Goodo</title>
+<meta name="description" content="Skip the scroll. Goodo picks where to eat in San Francisco, and what to order.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@500;700;800&family=Figtree:wght@400;500;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:
 .pill{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;background:var(--btn-bg);color:var(--btn-fg);font:inherit;font-weight:600;text-decoration:none;cursor:pointer}
 .navcta{margin-left:8px;height:44px;padding:0 20px;font-size:15px}
 main{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;padding:24px 20px 64px}
-.word{display:block;width:clamp(300px,46vw,600px);height:auto;overflow:visible}
+.word{display:block;width:clamp(300px,44vw,580px);height:auto;overflow:visible}
 h1{margin:8px 0 0;font-size:clamp(21px,2.3vw,30px);line-height:1.25;font-weight:500;letter-spacing:-.01em;max-width:24ch;text-wrap:balance}
 .ctas{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:8px}
 .cta{height:56px;padding:0 32px;font-size:17px}
@@ -57,7 +57,8 @@ nav{padding:10px 16px}
 .page{min-height:max(100svh,780px)}
 .food{left:var(--ml);top:var(--mt);width:var(--mw);filter:drop-shadow(0 14px 14px var(--shadow))}
 main{justify-content:flex-start;padding:16vh 20px 40px}
-.word{width:min(300px,77vw)}
+.word{width:min(330px,86vw)}
+h1{max-width:min(280px,74vw)}
 }
 @media (prefers-reduced-motion: reduce){.food{animation:none}}
 </style>
@@ -71,7 +72,7 @@ main{justify-content:flex-start;padding:16vh 20px 40px}
 <img class="food" src="img/dishes/ube-latte.webp" alt="" style="--l:19%;--t:52%;--w:clamp(59px,7.66vw,113px);--r:-6deg;--f:-10px;animation-duration:8.6s;animation-delay:-5.1s;--ml:-4%;--mt:39%;--mw:15.90vw">
 <img class="food" src="img/dishes/margherita-pizza.webp" alt="" style="--l:-3%;--t:65%;--w:clamp(132px,17.19vw,253px);--r:-7deg;--f:-13px;animation-duration:9.3s;animation-delay:-6.8s;--ml:-10%;--mt:64%;--mw:38.46vw">
 <img class="food" src="img/dishes/double-cheeseburger.webp" alt="" style="--l:13%;--t:77%;--w:clamp(96px,12.50vw,184px);--r:5deg;--f:-12px;animation-duration:7.0s;animation-delay:-1.5s;--ml:71%;--mt:64%;--mw:31.79vw">
-<img class="food" src="img/dishes/matcha-soft-serve.webp" alt="" style="--l:22%;--t:3%;--w:clamp(48px,6.25vw,92px);--r:-5deg;--f:-10px;animation-duration:7.7s;animation-delay:-3.2s;--ml:33%;--mt:2%;--mw:12.31vw">
+<img class="food" src="img/dishes/matcha-soft-serve.webp" alt="" style="--l:22%;--t:3%;--w:clamp(48px,6.25vw,92px);--r:-5deg;--f:-10px;animation-duration:7.7s;animation-delay:-3.2s;--ml:39%;--mt:2%;--mw:12.31vw">
 <img class="food dsk" src="img/dishes/tonkotsu-ramen.webp" alt="" style="--l:60%;--t:4%;--w:clamp(77px,10.00vw,147px);--r:5deg;--f:-11px;animation-duration:8.4s;animation-delay:-4.9s">
 <img class="food" src="img/dishes/thai-iced-tea.webp" alt="" style="--l:74%;--t:13%;--w:clamp(53px,6.88vw,101px);--r:7deg;--f:-10px;animation-duration:9.1s;animation-delay:-6.6s;--ml:58%;--mt:5%;--mw:14.87vw">
 <img class="food" src="img/dishes/xiaolongbao.webp" alt="" style="--l:84%;--t:10%;--w:clamp(98px,12.81vw,189px);--r:-5deg;--f:-12px;animation-duration:6.8s;animation-delay:-1.3s;--ml:76%;--mt:8%;--mw:26.67vw">
@@ -83,7 +84,7 @@ main{justify-content:flex-start;padding:16vh 20px 40px}
 <img class="food" src="img/dishes/mochi-assortment.webp" alt="" style="--l:57%;--t:83%;--w:clamp(83px,10.78vw,159px);--r:-3deg;--f:-11px;animation-duration:8.0s;animation-delay:-4.5s;--ml:44%;--mt:80%;--mw:25.64vw">
 </div>
 <nav>
-<div class="logo"><svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 36c0-13 10-22 22-22s22 9 22 22c0 6-8 10-22 10S10 42 10 36z"></path><path d="M32 15c-1-3 1-6 4-6M32 15c-5 2-8 5-10 9M32 15c-1.5 3-1.5 6 0 9M32 15c5 2 8 5 10 9"></path><circle cx="25" cy="32" r="1.8" fill="currentColor" stroke="none"></circle><circle cx="39" cy="32" r="1.8" fill="currentColor" stroke="none"></circle><path d="M30 36q2 2 4 0"></path></svg><span>bao</span></div>
+<div class="logo"><svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 36c0-13 10-22 22-22s22 9 22 22c0 6-8 10-22 10S10 42 10 36z"></path><path d="M32 15c-1-3 1-6 4-6M32 15c-5 2-8 5-10 9M32 15c-1.5 3-1.5 6 0 9M32 15c5 2 8 5 10 9"></path><circle cx="25" cy="32" r="1.8" fill="currentColor" stroke="none"></circle><circle cx="39" cy="32" r="1.8" fill="currentColor" stroke="none"></circle><path d="M30 36q2 2 4 0"></path></svg><span>goodo</span></div>
 <div style="display:flex;align-items:center;gap:4px">
 <button class="lang">中文</button>
 <button class="lang" style="font-weight:700;color:var(--ink)">EN</button>
@@ -91,14 +92,14 @@ main{justify-content:flex-start;padding:16vh 20px 40px}
 </div>
 </nav>
 <main>
-<svg class="word" role="img" aria-label="bao" viewBox="0 0 620 250" focusable="false"><text x="300" y="196" text-anchor="middle" font-family="'Shantell Sans', 'ZCOOL KuaiLe', cursive" font-weight="800" font-size="230" letter-spacing="-4" fill="currentColor">bao</text></svg>
-<h1>Skip the scroll. Bao picks where to eat in SF, and what to order.</h1>
+<svg class="word" role="img" aria-label="goodo" viewBox="0 0 760 250" focusable="false"><text x="380" y="196" text-anchor="middle" font-family="'Shantell Sans', 'ZCOOL KuaiLe', cursive" font-weight="800" font-size="230" letter-spacing="-4" fill="currentColor">goodo</text></svg>
+<h1>Skip the scroll. Goodo picks where to eat in SF, and what to order.</h1>
 <div class="ctas">
 <button class="pill cta" data-open>Join the waitlist</button>
 <button class="code" data-open="code">Have a code?</button>
 </div>
 </main>
-<footer><span>© 2026 Bao</span><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="sms-terms.html">SMS terms</a><a href="mailto:[CONTACT EMAIL]">[CONTACT EMAIL]</a></footer>
+<footer><span>© 2026 Goodo</span><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="sms-terms.html">SMS terms</a><a href="mailto:[CONTACT EMAIL]">[CONTACT EMAIL]</a></footer>
 </div>
 <dialog id="join" aria-labelledby="join-title">
 <button class="close" aria-label="Close" data-close>×</button>
@@ -107,7 +108,7 @@ main{justify-content:flex-start;padding:16vh 20px 40px}
 <label>Phone number<input name="phone" type="tel" autofocus autocomplete="tel" placeholder="+1 415 555 0123" required></label>
 <button type="button" class="code" data-show-code>Have a code?</button>
 <label hidden>Access code<input name="code" autocomplete="off"></label>
-<label class="sms"><input type="checkbox" name="sms" value="yes"><span>Text me about Bao by SMS from +1 (628) 301-6836. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. <a href="sms-terms.html" target="_blank">SMS terms</a></span></label>
+<label class="sms"><input type="checkbox" name="sms" value="yes"><span>Text me about Goodo by SMS from +1 (628) 301-6836. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. <a href="sms-terms.html" target="_blank">SMS terms</a></span></label>
 <p class="msg" role="status"></p>
 <button class="pill cta">Join</button>
 </form>
