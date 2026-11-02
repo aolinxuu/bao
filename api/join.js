@@ -42,6 +42,6 @@ export async function POST(request) {
   await tx.exec()
 
   if (status === 'waitlist') return Response.json({})
-  const text = encodeURIComponent(`Hi Goodo! My code is ${code}`)
+  const text = encodeURIComponent(`Hi Peku! My code is ${code}`)
   return Response.json({ url: `https://wa.me/${process.env.BAO_WHATSAPP}?text=${text}` })
 }
