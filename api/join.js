@@ -61,6 +61,6 @@ export async function POST(request) {
   if (!code) return Response.json({})
   // The bot checks the code when they send it: a friend's code skips the line, a wrong one just
   // leaves them on the waitlist (as the bot's /i/<code> page does).
-  const text = encodeURIComponent(`Hi Goodo! My code is ${code}`)
-  return Response.json({ url: `https://wa.me/${process.env.BAO_WHATSAPP}?text=${text}` })
+  const text = encodeURIComponent(`Hi goodo! My code is ${code}`)
+  return Response.json({ url: `https://wa.me/${process.env.GOODO_WHATSAPP}?text=${text}` })
 }
