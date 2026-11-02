@@ -6,10 +6,10 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 ## Where things live
 - **Live site:** https://getgoodo.com (primary; www.getgoodo.com 308-redirects to it; DNS at Squarespace via Google Workspace: A @ 216.198.79.1, CNAME www → Vercel; also bao-beryl.vercel.app; Vercel project `bao` under "Aolin's projects", deploys `main` on push). GitHub Pages (aolinxuu.github.io/bao) can't run `api/`; turn it off.
 - **Code:** `index.html` is the page (a `<style>` block plus a small script for the join dialog). `api/join.js` is the one Vercel Function.
-- **Signup:** "Join the waitlist" asks only for a WhatsApp number; "Have a code?" adds an access-code field. A valid code returns a `wa.me` link to Peku; no code puts them on the waitlist; a wrong code shows "That code didn't work."
-  - Valid codes: env `INVITE_CODE` (1020) or any member of the Redis set `invite_codes` (friend referrals; add with `SADD invite_codes <code>`).
-  - Storage: Upstash Redis `upstash-kv-cobalt-cable` (free plan) via the Vercel Marketplace (`KV_REST_API_URL/TOKEN`). Hash `signup:<phone digits>` = {phone, sms, status, code (invited only), at (first join)}; sorted set `signups` by first join time. Both are written in one `multi()`; status only moves forward (a later join without a code never undoes an invite).
-  - Env vars: `INVITE_CODE=1020`, `BAO_WHATSAPP=16283016836` (digits only; Twilio number still registered on WhatsApp as "Bao" (rename after the SF fictitious business name filing + Meta Business verification), phone number ID 1389678297560424; the old Meta test number was 15556733257).
+- **Signup:** "Join the waitlist" asks only for a WhatsApp number; "Have a code?" adds an access-code field. Every signup goes to the bot's waitlist (`POST https://mimi-sf-bot.fly.dev/waitlist`, `app/web/waitlist.py` in the bot repo `aolinxuu/mimi`), whose admission queue lets waitlist people in first. With a code, the reply is a `wa.me` link with "My code is <code>" typed in; the bot checks the code (a friend's code skips the line, a wrong one leaves them waiting), so the site doesn't.
+  - The forward carries `Authorization: Bearer $WAITLIST_FORWARD_KEY` (same value as the Fly secret) and the visitor's IP in `X-Client-IP`, so the bot's per-IP limits count visitors. The bot's 422 shows "Check your phone number", its 429 "Too many tries". If the bot is unreachable the signup still succeeds and the error is in the Vercel logs.
+  - Copy in Upstash Redis `upstash-kv-cobalt-cable` (free plan) via the Vercel Marketplace (`KV_REST_API_URL/TOKEN`): hash `signup:<phone digits>` = {phone, sms, code (if given), at (first join)}; sorted set `signups` by first join time. Older entries also have `status`.
+  - Env vars: `WAITLIST_FORWARD_KEY`, `BOT_WAITLIST_URL` (optional; defaults to the Fly URL), `WHATSAPP_NUMBER=16283016836` (digits only; was `BAO_WHATSAPP`; Twilio number still registered on WhatsApp as "Bao" (rename after the SF fictitious business name filing + Meta Business verification), phone number ID 1389678297560424; the old Meta test number was 15556733257). `INVITE_CODE` and the Redis set `invite_codes` are no longer read.
 - **Images:** floating dish cutouts are in `img/dishes/<dish>.webp` (16 files; the older `img/dish-1..3.webp` are unused).
 - **Design source of truth:** Design canvas "Peku landing page" (was "Bao"/"Goodo landing page") — https://claude.ai/artifact/KESaMLiFukqjvWwEXQynWL
   - `Floating.dc.html` — Desktop, floating dishes (matches live)
@@ -32,7 +32,7 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 - Launch scope: recs + table booking; delivery later. Never: influencer hype, corporate tech, fine-dining snob.
 
 ## Open items
-0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, env var `BAO_WHATSAPP`, WhatsApp display name, domain getgoodo.com and its emails (until a Peku domain exists), nav logo is still the bao-bun icon (to be replaced by the bird mascot).
+0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, WhatsApp display name, domain getgoodo.com and its emails (until a Peku domain exists), nav logo is still the bao-bun icon (to be replaced by the bird mascot).
 1. Turn off GitHub Pages. (Custom domain getgoodo.com added Oct 23, 2026.)
 2. 中文/EN toggle removed Oct 23, 2026 (US audience).
 3. Contact email filled: hello@ (footer, questions), privacy@ (data deletion), support@ (SMS HELP). Still placeholders: `[LEGAL NAME]`, `[ADDRESS]` (fill after incorporation).

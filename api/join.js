@@ -5,11 +5,31 @@ const redis = new Redis({
   token: process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN,
 })
 
-// Valid codes: INVITE_CODE (1020), or a friend's referral code in the "invite_codes" set.
-// Returns null for a wrong code.
-async function statusFor(code) {
-  if (!code) return 'waitlist'
-  if (code === process.env.INVITE_CODE || (await redis.sismember('invite_codes', code))) return 'invited'
+const BOT_WAITLIST_URL = process.env.BOT_WAITLIST_URL ?? 'https://mimi-sf-bot.fly.dev/waitlist'
+
+// The bot's admission queue reads its own waitlist table, so every signup goes there. The key lets the
+// bot rate-limit each visitor's IP instead of Vercel's. Returns the bot's error code, or null when the
+// signup is stored or the bot couldn't be reached (the Redis copy below still holds it).
+async function addToBot(request, phone, sms) {
+  const ip = request.headers.get('x-real-ip') ?? request.headers.get('x-forwarded-for')?.split(',')[0].trim()
+  try {
+    const r = await fetch(BOT_WAITLIST_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.WAITLIST_FORWARD_KEY ?? ''}`,
+        ...(ip && { 'X-Client-IP': ip }),
+      },
+      body: JSON.stringify({ phone, channel: 'whatsapp', consent: sms === 'yes', source: 'getgoodo.com' }),
+      signal: AbortSignal.timeout(5000),
+    })
+    if (r.ok) return null
+    const { error } = await r.json().catch(() => ({}))
+    if (r.status === 422 || r.status === 429) return error ?? 'rejected'
+    console.error('waitlist forward failed', r.status, error)
+  } catch (e) {
+    console.error('waitlist forward failed', e)
+  }
   return null
 }
 
@@ -25,23 +45,22 @@ export async function POST(request) {
     return Response.json({ error: 'Check your phone number.' }, { status: 400 })
   }
 
-  const status = await statusFor(code)
-  if (!status) return Response.json({ error: "That code didn't work." }, { status: 401 })
+  const error = await addToBot(request, phone, sms)
+  if (error === 'rate_limited') return Response.json({ error: 'Too many tries. Try again later.' }, { status: 429 })
+  if (error) return Response.json({ error: 'Check your phone number. Outside the US, start with +.' }, { status: 400 })
 
-  // Keyed by phone digits, so joining twice updates the same entry.
+  // Keyed by phone digits, so joining twice updates the same entry. The first join time wins.
   const key = `signup:${digits}`
   const now = Date.now()
   const tx = redis.multi()
-  tx.hset(key, { phone, sms })
-  // Status only moves forward: a later join without a code never undoes an invite.
-  if (status === 'invited') tx.hset(key, { code, status })
-  else tx.hsetnx(key, 'status', 'waitlist')
-  // The first join time wins, in the hash and in the sorted set.
+  tx.hset(key, code ? { phone, sms, code } : { phone, sms })
   tx.hsetnx(key, 'at', new Date(now).toISOString())
   tx.zadd('signups', { nx: true }, { score: now, member: digits })
   await tx.exec()
 
-  if (status === 'waitlist') return Response.json({})
+  if (!code) return Response.json({})
+  // The bot checks the code when they send it: a friend's code skips the line, a wrong one just
+  // leaves them on the waitlist (as the bot's /i/<code> page does).
   const text = encodeURIComponent(`Hi Peku! My code is ${code}`)
-  return Response.json({ url: `https://wa.me/${process.env.BAO_WHATSAPP}?text=${text}` })
+  return Response.json({ url: `https://wa.me/${process.env.WHATSAPP_NUMBER}?text=${text}` })
 }
