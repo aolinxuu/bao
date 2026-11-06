@@ -6,6 +6,11 @@ const redis = new Redis({
 })
 
 const BOT_WAITLIST_URL = process.env.BOT_WAITLIST_URL ?? 'https://mimi-sf-bot.fly.dev/waitlist'
+const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER ?? '16283016836'
+
+function chatUrl(text) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+}
 
 // The bot's admission queue reads its own waitlist table, so every signup goes there. The key lets the
 // bot rate-limit each visitor's IP instead of Vercel's. Returns the bot's error code, or null when the
@@ -58,9 +63,10 @@ export async function POST(request) {
   tx.zadd('signups', { nx: true }, { score: now, member: digits })
   await tx.exec()
 
-  if (!code) return Response.json({})
+  // The bot can only reach someone who has messaged it, so the signup isn't finished until they do.
+  // Plain "Hi!": the bot answers a greeting with "you're on the list" or "you're in", not a search.
+  if (!code) return Response.json({ chat: chatUrl('Hi!') })
   // The bot checks the code when they send it: a friend's code skips the line, a wrong one just
   // leaves them on the waitlist (as the bot's /i/<code> page does).
-  const text = encodeURIComponent(`Hi Peku! My code is ${code}`)
-  return Response.json({ url: `https://wa.me/${process.env.WHATSAPP_NUMBER}?text=${text}` })
+  return Response.json({ url: chatUrl(`Hi Peku! My code is ${code}`) })
 }
