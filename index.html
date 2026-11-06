@@ -43,7 +43,8 @@ dialog .code{align-self:flex-start;min-height:32px;font-size:14px}
 dialog .cta:disabled{opacity:.6;cursor:default}
 .msg{margin:0;min-height:1.3em;font-size:14px;color:var(--muted)}
 .close{position:absolute;top:12px;right:12px;width:44px;height:44px;border:0;background:none;color:var(--muted);font-size:24px;cursor:pointer}
-.done{margin:0;font-size:17px;line-height:1.4}
+.done p{margin:0;font-size:17px;line-height:1.4}
+dialog .done .cta{box-sizing:border-box;margin-top:16px}
 dialog label.sms{flex-direction:row;align-items:flex-start;gap:10px;font-size:12px;font-weight:400;line-height:1.45;color:var(--muted)}
 dialog .sms input{width:18px;height:18px;flex:none;margin:1px 0 0;padding:0;accent-color:var(--ink)}
 dialog .sms a{color:var(--ink)}
@@ -109,7 +110,10 @@ h1{max-width:min(280px,74vw)}
 <p class="msg" role="status"></p>
 <button class="pill cta">Join</button>
 </form>
-<p class="done" hidden>You're on the waitlist. We'll message you when it's your turn.</p>
+<div class="done" hidden>
+<p>You're on the waitlist. Say hi on WhatsApp so we can tell you when it's your turn.</p>
+<a class="pill cta" target="_blank" rel="noopener">Say hi on WhatsApp</a>
+</div>
 </dialog>
 <script>
 const dlg=document.getElementById('join'),form=dlg.querySelector('form'),codeBtn=form.querySelector('[data-show-code]'),codeField=form.code.parentElement
@@ -126,7 +130,7 @@ form.onsubmit=async e=>{
     const d=await r.json().catch(()=>({}))
     if(!r.ok)msg.textContent=d.error||'Something went wrong. Try again.'
     else if(d.url)location.href=d.url
-    else{form.hidden=true;form.nextElementSibling.hidden=false}
+    else{form.nextElementSibling.querySelector('a').href=d.chat;form.hidden=true;form.nextElementSibling.hidden=false}
   }catch{msg.textContent='Something went wrong. Try again.'}
   finally{btn.disabled=false}
 }
