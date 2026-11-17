@@ -10,13 +10,13 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
   - The forward carries `Authorization: Bearer $WAITLIST_FORWARD_KEY` (same value as the Fly secret) and the visitor's IP in `X-Client-IP`, so the bot's per-IP limits count visitors. The bot's 422 shows "Check your phone number", its 429 "Too many tries". If the bot is unreachable the signup still succeeds and the error is in the Vercel logs.
   - Copy in Upstash Redis `upstash-kv-cobalt-cable` (free plan) via the Vercel Marketplace (`KV_REST_API_URL/TOKEN`): hash `signup:<phone digits>` = {phone, sms, code (if given), at (first join)}; sorted set `signups` by first join time. Older entries also have `status`.
   - Env vars: `WAITLIST_FORWARD_KEY`, `BOT_WAITLIST_URL` (optional; defaults to the Fly URL), `WHATSAPP_NUMBER=16283016836` (digits only; was `BAO_WHATSAPP`; Twilio number still registered on WhatsApp as "Bao" (rename after the SF fictitious business name filing + Meta Business verification), phone number ID 1389678297560424; the old Meta test number was 15556733257). `INVITE_CODE` and the Redis set `invite_codes` are no longer read.
-- **Images:** mascot (bird) PNGs in `img/peku/` (wave, think, cookie, jump, nap, ready), from the v5 canvas. The dish cutouts in `img/dishes/` are no longer used.
-- **Design source of truth:** Design canvas "Peku landing page (v5)" — https://claude.ai/artifact/KYn3pqreexA8oZsGiKS8hF (`Main.dc.html`, one fluid 1440-wide page). The older canvas https://claude.ai/artifact/KESaMLiFukqjvWwEXQynWL holds the previous floating-dishes design.
+- **Images:** mascot (bird) PNGs in `img/peku/` (wave, think, cookie, jump, ready), from the canvas. The dish cutouts in `img/dishes/` are no longer used.
+- **Design source of truth:** Design canvas "Peku landing page (v5.3 Y2K)" — https://claude.ai/artifact/7w4sQLenWkbdcpLtHqdfLz (`Main.dc.html`, one fluid 1440-wide page). Older: v5 https://claude.ai/artifact/KYn3pqreexA8oZsGiKS8hF, floating dishes https://claude.ai/artifact/KESaMLiFukqjvWwEXQynWL.
   - The user edits the canvas by hand: always re-read `project/canvas.json` and the artboard before publishing. Change canvas and `index.html` together.
-  - Live copy differs from the canvas on purpose: placeholders filled (spot names Little Fig / Golden Bowl are made up, cities = SF only, hello@heypeku.com), headline uses the A/B default "The spot for the night that matters."
+  - Live copy differs from the canvas on purpose: placeholders filled (group-chat spot Golden Bowl is made up, cities = SF only, hello@heypeku.com, no Instagram/TikTok), A/B defaults used: headline "The spot for the night that matters.", glossy CTA, chat animation on.
 
-## Current design (Nov 17, 2026, v5 scrolling page)
-- Yellow hero (Peku waving next to a phone mockup of a text thread), occasions strip, how it works (3 cards), why Peku (4 perks), group chat "coming soon", FAQ, blue footer. Fonts Fredoka (wordmark) + Rubik.
+## Current design (Nov 17, 2026, v5.3 Y2K scrolling page)
+- Yellow hero ("waitlist only" badge, glossy orange CTA, Peku waving beside an orange flip phone whose screen replays a short text thread; sparkles), occasions strip, how it works (3 cards), group chat "coming soon", FAQ, blue footer. Fonts Fredoka (wordmark), Rubik, Silkscreen (phone screen). The chat loop is a small script; reduced motion shows it static.
 - Every CTA ("text Peku", "Text Peku", the iMessage/WhatsApp/SMS chips, "get early access") opens the waitlist dialog; "have a code?" opens it with the code field.
 - Colors are CSS variables on `:root`; light only (no dark override).
 - User preference: simpler and fewer words every round; apply requests directly; lead with the answer, short, bullets.
