@@ -10,20 +10,15 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
   - The forward carries `Authorization: Bearer $WAITLIST_FORWARD_KEY` (same value as the Fly secret) and the visitor's IP in `X-Client-IP`, so the bot's per-IP limits count visitors. The bot's 422 shows "Check your phone number", its 429 "Too many tries". If the bot is unreachable the signup still succeeds and the error is in the Vercel logs.
   - Copy in Upstash Redis `upstash-kv-cobalt-cable` (free plan) via the Vercel Marketplace (`KV_REST_API_URL/TOKEN`): hash `signup:<phone digits>` = {phone, sms, code (if given), at (first join)}; sorted set `signups` by first join time. Older entries also have `status`.
   - Env vars: `WAITLIST_FORWARD_KEY`, `BOT_WAITLIST_URL` (optional; defaults to the Fly URL), `WHATSAPP_NUMBER=16283016836` (digits only; was `BAO_WHATSAPP`; Twilio number still registered on WhatsApp as "Bao" (rename after the SF fictitious business name filing + Meta Business verification), phone number ID 1389678297560424; the old Meta test number was 15556733257). `INVITE_CODE` and the Redis set `invite_codes` are no longer read.
-- **Images:** floating dish cutouts are in `img/dishes/<dish>.webp` (16 files; the older `img/dish-1..3.webp` are unused).
-- **Design source of truth:** Design canvas "Peku landing page" (was "Bao"/"Goodo landing page") — https://claude.ai/artifact/KESaMLiFukqjvWwEXQynWL
-  - `Floating.dc.html` — Desktop, floating dishes (matches live)
-  - `Phone-floating.dc.html` — Phone, floating dishes (matches live at ≤600px)
-  - The `Handdrawn-v2*` and `Phone-v2*` boards are the previous live design.
+- **Images:** mascot (bird) PNGs in `img/peku/` (wave, think, cookie, jump, ready), from the canvas. The dish cutouts in `img/dishes/` are no longer used.
+- **Design source of truth:** Design canvas "Peku landing page (v5.3 Y2K)" — https://claude.ai/artifact/7w4sQLenWkbdcpLtHqdfLz (`Main.dc.html`, one fluid 1440-wide page). Older: v5 https://claude.ai/artifact/KYn3pqreexA8oZsGiKS8hF, floating dishes https://claude.ai/artifact/KESaMLiFukqjvWwEXQynWL.
   - The user edits the canvas by hand: always re-read `project/canvas.json` and the artboard before publishing. Change canvas and `index.html` together.
-  - Dish positions in `index.html` are CSS variables per image: `--l/--t/--w` (desktop, % of viewport) and `--ml/--mt/--mw` (phone). Images without phone values carry class `dsk` and hide on phone.
+  - Live copy differs from the canvas on purpose: placeholders filled (group-chat spot Golden Bowl is made up, cities = SF only, hello@heypeku.com, no Instagram/TikTok), A/B defaults used: headline "The spot for the night that matters.", glossy CTA, chat animation on.
 
-## Current design (Oct 20, 2026, Corner-style)
-- One screen, no scroll, on desktop (1280×800, 1440×900) and phone (390×844; short phones scroll a little).
-- Centered: big black "peku" wordmark in Shantell Sans 800 (static, no shadow; SVG viewBox 620×250, width clamp(300px,46vw,600px), phone min(300px,77vw)), line "Skip the scroll. Peku picks where to eat in SF, and what to order.", black pill "Join the waitlist", link "Have a code?". Nav also has a "Join the waitlist" pill on desktop.
-- Around it: 16 dish cutouts (12 on phone) floating gently, off for reduced motion. None may overlap the text.
-- Invite-only framing: no "5 invites" copy on the page; invites get explained after signup.
-- Colors are CSS variables on `:root` with a dark override; SVGs use `currentColor`.
+## Current design (Nov 17, 2026, v5.3 Y2K scrolling page)
+- Yellow hero ("waitlist only" badge, glossy orange CTA, Peku waving beside an orange flip phone whose screen replays a short text thread; sparkles), occasions strip, how it works (3 cards), group chat "coming soon", FAQ, blue footer. Fonts Fredoka (wordmark), Rubik, Silkscreen (phone screen). The chat loop is a small script; reduced motion shows it static.
+- Every CTA ("text Peku", "Text Peku", the iMessage/WhatsApp/SMS chips, "get early access") opens the waitlist dialog; "have a code?" opens it with the code field.
+- Colors are CSS variables on `:root`; light only (no dark override).
 - User preference: simpler and fewer words every round; apply requests directly; lead with the answer, short, bullets.
 
 ## Brand (Nov 2, 2026)
@@ -32,7 +27,7 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 - Launch scope: recs + table booking; delivery later. Never: influencer hype, corporate tech, fine-dining snob.
 
 ## Open items
-0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, WhatsApp display name, domain getgoodo.com and its emails (until a Peku domain exists), nav logo is still the bao-bun icon (to be replaced by the bird mascot).
+0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, WhatsApp display name, domain getgoodo.com and its emails. The user owns heypeku.com (Nov 17, 2026): not yet added to Vercel; the footer already shows hello@heypeku.com, so that mailbox must exist. Privacy/terms pages still say getgoodo.com emails.
 1. Turn off GitHub Pages. (Custom domain getgoodo.com added Oct 23, 2026.)
 2. 中文/EN toggle removed Oct 23, 2026 (US audience).
 3. Contact email filled: hello@ (footer, questions), privacy@ (data deletion), support@ (SMS HELP). Still placeholders: `[LEGAL NAME]`, `[ADDRESS]` (fill after incorporation).
