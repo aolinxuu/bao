@@ -25,7 +25,7 @@ async function addToBot(request, phone, sms) {
         Authorization: `Bearer ${process.env.WAITLIST_FORWARD_KEY ?? ''}`,
         ...(ip && { 'X-Client-IP': ip }),
       },
-      body: JSON.stringify({ phone, channel: 'whatsapp', consent: sms === 'yes', source: 'getgoodo.com' }),
+      body: JSON.stringify({ phone, channel: 'whatsapp', consent: sms === 'yes', source: 'heypeku.com' }),
       signal: AbortSignal.timeout(5000),
     })
     if (r.ok) return null

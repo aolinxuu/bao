@@ -4,7 +4,7 @@ Peku (renamed Bao → Goodo on Oct 22, 2026, then Goodo → Peku on Nov 2, 2026;
 Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/Instagram food content. Keep dating out of the copy (planned for v2).
 
 ## Where things live
-- **Live site:** https://getgoodo.com (primary; www.getgoodo.com 308-redirects to it; DNS at Squarespace via Google Workspace: A @ 216.198.79.1, CNAME www → Vercel; also bao-beryl.vercel.app; Vercel project `bao` under "Aolin's projects", deploys `main` on push). GitHub Pages (aolinxuu.github.io/bao) can't run `api/`; turn it off.
+- **Live site:** https://www.heypeku.com (primary since Nov 17, 2026; heypeku.com, getgoodo.com and www.getgoodo.com all 308-redirect to it, keeping the path). heypeku.com is registered and DNS-hosted at Cloudflare: CNAME @ and www → `f85631c6c3720fb8.vercel-dns-017.com`, both "DNS only" (proxy off), plus Google Workspace MX/SPF/DKIM. getgoodo.com DNS is at Squarespace (A @ 216.198.79.1, CNAME www → Vercel). Also bao-beryl.vercel.app; Vercel project `bao` under "Aolin's projects", deploys `main` on push. GitHub Pages (aolinxuu.github.io/bao) can't run `api/`; turn it off.
 - **Code:** `index.html` is the page (a `<style>` block plus a small script for the join dialog). `api/join.js` is the one Vercel Function.
 - **Signup:** "Join the waitlist" asks only for a WhatsApp number; "Have a code?" adds an access-code field. Every signup goes to the bot's waitlist (`POST https://mimi-sf-bot.fly.dev/waitlist`, `app/web/waitlist.py` in the bot repo `aolinxuu/mimi`), whose admission queue lets waitlist people in first. With a code, the reply is a `wa.me` link with "My code is <code>" typed in; the bot checks the code (a friend's code skips the line, a wrong one leaves them waiting), so the site doesn't. Without a code, the success screen has a "Say hi on WhatsApp" button (`wa.me` with "Hi!" typed in): the bot can only let in and message people who have messaged it, so the form alone never reaches them.
   - The forward carries `Authorization: Bearer $WAITLIST_FORWARD_KEY` (same value as the Fly secret) and the visitor's IP in `X-Client-IP`, so the bot's per-IP limits count visitors. The bot's 422 shows "Check your phone number", its 429 "Too many tries". If the bot is unreachable the signup still succeeds and the error is in the Vercel logs.
@@ -27,7 +27,7 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 - Launch scope: recs + table booking; delivery later. Never: influencer hype, corporate tech, fine-dining snob.
 
 ## Open items
-0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, WhatsApp display name, domain getgoodo.com and its emails. The user owns heypeku.com (Nov 17, 2026): not yet added to Vercel; the footer already shows hello@heypeku.com, so that mailbox must exist. Privacy/terms pages still say getgoodo.com emails.
+0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, WhatsApp display name, domain getgoodo.com (now a redirect). All pages now show @heypeku.com emails (hello@, privacy@, support@): those mailboxes or aliases must exist in Google Workspace.
 1. Turn off GitHub Pages. (Custom domain getgoodo.com added Oct 23, 2026.)
 2. 中文/EN toggle removed Oct 23, 2026 (US audience).
 3. Contact email filled: hello@ (footer, questions), privacy@ (data deletion), support@ (SMS HELP). Still placeholders: `[LEGAL NAME]`, `[ADDRESS]` (fill after incorporation).
