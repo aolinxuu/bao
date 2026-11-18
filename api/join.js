@@ -7,15 +7,20 @@ const redis = new Redis({
 
 const BOT_WAITLIST_URL = process.env.BOT_WAITLIST_URL ?? 'https://mimi-sf-bot.fly.dev/waitlist'
 const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER ?? '16283016836'
+// iMessage and SMS both go to the Sendblue line; it answers blue and green bubbles alike.
+const TEXT_NUMBER = process.env.TEXT_NUMBER ?? '18584627637'
+const CHANNELS = ['imessage', 'sms', 'whatsapp']
 
-function chatUrl(text) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+// "?&body=" opens Messages with the text typed in on both iOS and Android.
+function chatUrl(channel, text) {
+  if (channel === 'whatsapp') return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+  return `sms:+${TEXT_NUMBER}?&body=${encodeURIComponent(text)}`
 }
 
 // The bot's admission queue reads its own waitlist table, so every signup goes there. The key lets the
 // bot rate-limit each visitor's IP instead of Vercel's. Returns the bot's error code, or null when the
 // signup is stored or the bot couldn't be reached (the Redis copy below still holds it).
-async function addToBot(request, phone, sms) {
+async function addToBot(request, phone, sms, channel) {
   const ip = request.headers.get('x-real-ip') ?? request.headers.get('x-forwarded-for')?.split(',')[0].trim()
   try {
     const r = await fetch(BOT_WAITLIST_URL, {
@@ -25,7 +30,7 @@ async function addToBot(request, phone, sms) {
         Authorization: `Bearer ${process.env.WAITLIST_FORWARD_KEY ?? ''}`,
         ...(ip && { 'X-Client-IP': ip }),
       },
-      body: JSON.stringify({ phone, channel: 'whatsapp', consent: sms === 'yes', source: 'heypeku.com' }),
+      body: JSON.stringify({ phone, channel, consent: sms === 'yes', source: 'heypeku.com' }),
       signal: AbortSignal.timeout(5000),
     })
     if (r.ok) return null
@@ -45,12 +50,13 @@ export async function POST(request) {
   const digits = phone.replace(/\D/g, '')
   // The SMS box starts unchecked; only a checked box is consent to texts.
   const sms = body.sms === 'yes' ? 'yes' : 'no'
+  const channel = CHANNELS.includes(body.channel) ? body.channel : 'imessage'
 
   if (digits.length < 7 || digits.length > 15 || /[^\d\s()+.-]/.test(phone)) {
     return Response.json({ error: 'Check your phone number.' }, { status: 400 })
   }
 
-  const error = await addToBot(request, phone, sms)
+  const error = await addToBot(request, phone, sms, channel)
   if (error === 'rate_limited') return Response.json({ error: 'Too many tries. Try again later.' }, { status: 429 })
   if (error) return Response.json({ error: 'Check your phone number. Outside the US, start with +.' }, { status: 400 })
 
@@ -58,15 +64,15 @@ export async function POST(request) {
   const key = `signup:${digits}`
   const now = Date.now()
   const tx = redis.multi()
-  tx.hset(key, code ? { phone, sms, code } : { phone, sms })
+  tx.hset(key, code ? { phone, sms, channel, code } : { phone, sms, channel })
   tx.hsetnx(key, 'at', new Date(now).toISOString())
   tx.zadd('signups', { nx: true }, { score: now, member: digits })
   await tx.exec()
 
   // The bot can only reach someone who has messaged it, so the signup isn't finished until they do.
   // Plain "Hi!": the bot answers a greeting with "you're on the list" or "you're in", not a search.
-  if (!code) return Response.json({ chat: chatUrl('Hi!') })
+  if (!code) return Response.json({ chat: chatUrl(channel, 'Hi!') })
   // The bot checks the code when they send it: a friend's code skips the line, a wrong one just
   // leaves them on the waitlist (as the bot's /i/<code> page does).
-  return Response.json({ url: chatUrl(`Hi Peku! My code is ${code}`) })
+  return Response.json({ url: chatUrl(channel, `Hi Peku! My code is ${code}`) })
 }

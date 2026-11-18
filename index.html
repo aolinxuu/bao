@@ -173,9 +173,9 @@ dialog .sms a{color:var(--ink)}
 <p class="lede">Peku is your foodie friend who books the table. Just text.</p>
 <div class="ctas">
 <button class="btn big" data-open>Text Peku</button>
-<button class="btn chip" data-open>iMessage</button>
-<button class="btn chip" data-open>WhatsApp</button>
-<button class="btn chip" data-open>SMS</button>
+<button class="btn chip" data-open="imessage">iMessage</button>
+<button class="btn chip" data-open="whatsapp">WhatsApp</button>
+<button class="btn chip" data-open="sms">SMS</button>
 </div>
 <p class="small">free · no app · price up front, every time · <button class="link" data-open="code">have a code?</button></p>
 </div>
@@ -299,23 +299,27 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches)play()
 <button class="close" aria-label="Close" data-close>×</button>
 <h2 id="join-title">Join the waitlist</h2>
 <form>
+<input type="hidden" name="channel" value="imessage">
 <label>Phone number<input name="phone" type="tel" autofocus autocomplete="tel" placeholder="+1 415 555 0123" required></label>
 <button type="button" class="link" data-show-code>Have a code?</button>
 <label hidden>Access code<input name="code" autocomplete="off"></label>
-<label class="sms"><input type="checkbox" name="sms" value="yes"><span>Text me about Peku by SMS from +1 (628) 301-6836. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. <a href="sms-terms.html" target="_blank">SMS terms</a></span></label>
+<label class="sms"><input type="checkbox" name="sms" value="yes"><span>Text me about Peku by SMS from +1 (858) 462-7637. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. <a href="sms-terms.html" target="_blank">SMS terms</a></span></label>
 <p class="msg" role="status"></p>
 <button class="btn big">Join</button>
 </form>
 <div class="done" hidden>
-<p>You're on the waitlist. Say hi on WhatsApp so we can tell you when it's your turn.</p>
-<a class="btn big" target="_blank" rel="noopener">Say hi on WhatsApp</a>
+<p>You're on the waitlist. Say hi so we can tell you when it's your turn.</p>
+<a class="btn big">Say hi</a>
 </div>
 </dialog>
 <script>
 const dlg=document.getElementById('join'),form=dlg.querySelector('form'),codeBtn=form.querySelector('[data-show-code]'),codeField=form.code.parentElement
 function showCode(){codeBtn.hidden=true;codeField.hidden=false}
-document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{if(b.dataset.open==='code')showCode();dlg.showModal()})
+const done=form.nextElementSibling,doneLink=done.querySelector('a'),names={imessage:'iMessage',sms:'SMS',whatsapp:'WhatsApp'}
+// Chips pick the channel; every other button means iMessage. The code button keeps the last pick.
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{const o=b.dataset.open;if(o==='code')showCode();else form.channel.value=names[o]?o:'imessage';dlg.showModal()})
 dlg.querySelector('[data-close]').onclick=()=>dlg.close()
+dlg.onclose=()=>{if(!form.hidden)return;form.reset();form.hidden=false;done.hidden=true;codeBtn.hidden=false;codeField.hidden=true}
 codeBtn.onclick=()=>{showCode();form.code.focus()}
 form.onsubmit=async e=>{
   e.preventDefault()
@@ -326,7 +330,7 @@ form.onsubmit=async e=>{
     const d=await r.json().catch(()=>({}))
     if(!r.ok)msg.textContent=d.error||'Something went wrong. Try again.'
     else if(d.url)location.href=d.url
-    else{form.nextElementSibling.querySelector('a').href=d.chat;form.hidden=true;form.nextElementSibling.hidden=false}
+    else{const c=form.channel.value;doneLink.href=d.chat;doneLink.textContent='Say hi on '+names[c];doneLink.target=c==='whatsapp'?'_blank':'';form.hidden=true;done.hidden=false}
   }catch{msg.textContent='Something went wrong. Try again.'}
   finally{btn.disabled=false}
 }
