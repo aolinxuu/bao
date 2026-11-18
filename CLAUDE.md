@@ -27,7 +27,7 @@ Audience: tech workers, remote workers, and VCs/investors overwhelmed by TikTok/
 - Launch scope: recs + table booking; delivery later. Never: influencer hype, corporate tech, fine-dining snob.
 
 ## Open items
-0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, WhatsApp display name, domain getgoodo.com (now a redirect). All pages now show @heypeku.com emails (hello@, privacy@, support@): those mailboxes or aliases must exist in Google Workspace.
+0. Rename leftovers kept on purpose: Vercel project/URL `bao-beryl`, repo `aolinxuu/bao`, WhatsApp display name, domain getgoodo.com (now a redirect). All pages now show @heypeku.com emails (hello@, privacy@, support@): these are aliases of aolin@heypeku.com in the heypeku.com Google Workspace (added Nov 17, 2026).
 1. Turn off GitHub Pages. (Custom domain getgoodo.com added Oct 23, 2026.)
 2. 中文/EN toggle removed Oct 23, 2026 (US audience).
 3. Contact email filled: hello@ (footer, questions), privacy@ (data deletion), support@ (SMS HELP). Still placeholders: `[LEGAL NAME]`, `[ADDRESS]` (fill after incorporation).
