@@ -36,7 +36,7 @@ img{display:block}
 .me{align-self:flex-end;max-width:80%;background:var(--sky);border-radius:20px 20px 6px 20px}
 .them{align-self:flex-start;max-width:86%;border:1.5px solid var(--ink);background:var(--white);border-radius:20px 20px 20px 6px}
 
-header{background:var(--yellow)}
+header,.hero-bg{background:var(--yellow)}
 nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:20px;padding-bottom:20px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
 .logo:hover{color:var(--ink)}
@@ -51,6 +51,8 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 .hero .lede{font-size:20px;max-width:30ch}
 .ctas{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 .small{font-size:15px}
+.avail{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:16px}
+.avail::before{content:"";width:10px;height:10px;border-radius:999px;background:#3BA55C;border:1.5px solid var(--ink)}
 .hero-art{flex:1 1 440px;min-width:0;display:flex;justify-content:center}
 .stage{position:relative;display:flex;align-items:flex-end;padding:24px 24px 0 0}
 .spark{position:absolute}
@@ -63,7 +65,7 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 .screen::before{content:"";position:absolute;left:0;right:0;top:0;height:40%;background:linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,0));pointer-events:none}
 .pixel{font-family:Silkscreen,monospace;line-height:1}
 .statusbar{font-size:12px;display:flex;justify-content:space-between;padding:2px 2px 6px;border-bottom:1.5px dashed rgba(58,30,14,.35)}
-.chat{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;font-size:13.5px;line-height:1.35}
+.chat{flex:1 1 auto;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;font-size:13.5px;line-height:1.35}
 .chat div{border:1.5px solid var(--ink);padding:6px 10px}
 .chat .you{align-self:flex-end;max-width:78%;background:var(--peach);border-radius:14px 14px 4px 14px;transform-origin:bottom right}
 .chat .pk{align-self:flex-start;max-width:86%;background:var(--cream);border-radius:14px 14px 14px 4px;transform-origin:bottom left}
@@ -85,7 +87,7 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 
 .occasions{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
 .occasions .wrap{padding-top:22px;padding-bottom:22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;font-weight:500;font-size:15px}
-.tag{border:1.5px solid var(--ink);border-radius:999px;padding:6px 16px}
+.tag{border-radius:8px;padding:4px 12px;background:var(--peach)}
 
 .how{padding-top:96px;padding-bottom:96px;display:flex;flex-direction:column;gap:48px}
 .center{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
@@ -93,8 +95,8 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 .step{border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px}
 .step figure{margin:0;background:var(--yellow);border-radius:18px;display:flex;justify-content:center;padding:18px 0 12px}
 .step figure img{height:150px;width:auto}
-.step .n{font-size:14px;font-weight:500;color:var(--muted)}
-.step h3{font-size:24px;line-height:1.15}
+.step h3{font-size:24px;line-height:1.15;display:flex;align-items:center;gap:12px}
+.step .n{flex:none;width:36px;height:36px;border-radius:999px;background:var(--orange);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px}
 
 .group{background:var(--yellow);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
 .group .wrap{padding-top:88px;padding-bottom:88px;display:flex;flex-wrap:wrap;align-items:center;gap:48px}
@@ -139,15 +141,23 @@ dialog .big:disabled{opacity:.6;cursor:default}
 dialog label.sms{flex-direction:row;align-items:flex-start;gap:10px;font-size:12px;font-weight:400;line-height:1.45;color:var(--muted)}
 dialog .sms input{width:18px;height:18px;flex:none;margin:1px 0 0;padding:0;accent-color:var(--ink)}
 dialog .sms a{color:var(--ink)}
+.channels{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.channels legend{padding:0;margin-bottom:6px;font-size:14px;font-weight:500}
+dialog .channels label{position:relative}
+dialog .channels input{position:absolute;opacity:0;width:1px;height:1px;padding:0;border:0}
+.channels span{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:2px solid var(--ink);border-radius:999px;background:var(--white);font-size:15px;cursor:pointer}
+.channels input:checked+span{background:var(--ink);color:var(--cream)}
+.channels input:focus-visible+span{outline:2px solid var(--orange);outline-offset:2px}
 
 @media (max-width:600px){
 .navlinks{gap:16px}
 .navlinks a:not(.btn){display:none}
-.hero{padding-bottom:64px;gap:40px}
+.hero{padding-bottom:48px;gap:28px}
 .stage{padding-right:12px}
-.stage>img{height:100px;margin-right:-60px}
-.phone{width:248px;padding:16px 14px 20px;border-radius:48px 48px 54px 54px}
-.screen{height:320px}
+.stage>img{height:90px;margin-right:-56px}
+.phone{width:232px;padding:14px 12px 18px;border-radius:40px 40px 44px 44px}
+.phone .dpad,.phone .keys{display:none}
+.screen{height:270px}
 .how,.faq .wrap,.group .wrap{padding-top:64px;padding-bottom:64px}
 .group-art>img{height:120px}
 }
@@ -160,24 +170,25 @@ dialog .sms a{color:var(--ink)}
 <nav class="wrap" aria-label="Main">
 <a href="#" class="logo"><img src="img/peku/wave.png" alt="" width="520" height="452"><span class="brand">Peku</span></a>
 <div class="navlinks">
-<a href="#how">how it works</a>
-<a href="#faq">faq</a>
-<button class="btn" data-open>text Peku</button>
+<a href="#how">How it works</a>
+<a href="#faq">FAQ</a>
+<button class="btn" data-open>Join the waitlist</button>
 </div>
 </nav>
+</header>
 
-<section class="wrap hero">
+<main>
+<div class="hero-bg">
+<section class="wrap hero" aria-label="Intro">
 <div class="hero-copy">
 <span class="badge">waitlist only</span>
 <h1>The spot for the night that matters.</h1>
 <p class="lede">Peku is your foodie friend who books the table. Just text.</p>
 <div class="ctas">
-<button class="btn big" data-open>Text Peku</button>
-<button class="btn chip" data-open="imessage">iMessage</button>
-<button class="btn chip" data-open="whatsapp">WhatsApp</button>
-<button class="btn chip" data-open="sms">SMS</button>
+<button class="btn big" data-open>Join the waitlist</button>
+<span class="avail">Now in San Francisco</span>
 </div>
-<p class="small">free · no app · price up front, every time · <button class="link" data-open="code">have a code?</button></p>
+<p class="small">free · no app · price up front, every time · <button class="link" data-open="code">Have a code?</button></p>
 </div>
 
 <div class="hero-art">
@@ -201,35 +212,32 @@ dialog .sms a{color:var(--ink)}
 </div>
 </div>
 </section>
-</header>
+</div>
 
 <section class="occasions" aria-label="Occasions">
-<div class="wrap"><span style="margin-right:6px">for nights like:</span><span class="tag" style="background:var(--peach)">date night</span><span class="tag" style="background:var(--pale-sky)">friends</span><span class="tag" style="background:var(--yellow)">birthday</span><span class="tag" style="background:var(--blue);color:var(--cream)">before the concert</span><span class="tag" style="background:var(--cream)">parents in town</span></div>
+<div class="wrap"><span style="margin-right:6px">For nights like:</span><span class="tag">date night</span><span class="tag">friends</span><span class="tag">birthday</span><span class="tag">before the concert</span><span class="tag">parents in town</span></div>
 </section>
 
 <section id="how">
 <div class="wrap how">
 <div class="center">
-<span class="eyebrow">how it works</span>
-<h2>you text. Peku picks. you show up.</h2>
+<span class="eyebrow">How it works</span>
+<h2>You text. Peku picks. You show up.</h2>
 </div>
 <div class="steps">
 <div class="card step">
 <figure><img src="img/peku/think.png" alt="Peku thinking, wing on chin" width="306" height="387"></figure>
-<span class="n">1</span>
-<h3>tell Peku the vibe.</h3>
+<h3><span class="n" aria-hidden="true">1</span>Tell Peku the vibe.</h3>
 <p>“friday date, mission, ~$35 each.” the occasion, an area and a budget-ish. that's it.</p>
 </div>
 <div class="card step">
 <figure><img src="img/peku/cookie.png" alt="Peku munching a cookie" width="282" height="342"></figure>
-<span class="n">2</span>
-<h3>get one pick, not 20.</h3>
+<h3><span class="n" aria-hidden="true">2</span>Get one pick, not 20.</h3>
 <p>with the price up front and one line on why it fits your night.</p>
 </div>
 <div class="card step">
 <figure><img src="img/peku/jump.png" alt="Peku jumping with joy" width="399" height="382"></figure>
-<span class="n">3</span>
-<h3>it's booked.</h3>
+<h3><span class="n" aria-hidden="true">3</span>It's booked.</h3>
 <p>Peku grabs the table and reminds you before you go.</p>
 </div>
 </div>
@@ -240,9 +248,9 @@ dialog .sms a{color:var(--ink)}
 <div class="wrap">
 <div class="group-copy">
 <span class="soon">coming soon</span>
-<h2 id="group">planning with friends?</h2>
+<h2 id="group">Planning with friends?</h2>
 <p>Peku can join the group chat and end the “idk, you pick.”</p>
-<button class="btn" style="min-height:48px;padding:0 22px" data-open>get early access</button>
+<button class="btn" style="min-height:48px;padding:0 22px" data-open>Get group chats first</button>
 </div>
 <div class="group-art">
 <img src="img/peku/ready.png" alt="Peku with a fist pump, ready" width="417" height="411">
@@ -259,13 +267,14 @@ dialog .sms a{color:var(--ink)}
 
 <section id="faq" class="faq" aria-labelledby="faq-h">
 <div class="wrap">
-<h2 id="faq-h">questions, answered.</h2>
-<details class="card"><summary>is it free?</summary><p>yes. texting Peku is free. you pay the restaurant, same as always.</p></details>
-<details class="card"><summary>which cities?</summary><p>San Francisco for now. outside SF, Peku will tell you honestly it doesn't know the area well enough.</p></details>
-<details class="card"><summary>what do you do with my data?</summary><p>Peku uses what you text it to find and book spots and to learn your taste. the full details are in the <a href="privacy.html">privacy policy</a>.</p></details>
-<details class="card"><summary>can it book anywhere?</summary><p>anywhere that takes reservations online. if a spot doesn't, Peku says so and sends you the direct link.</p></details>
+<h2 id="faq-h">Questions, answered.</h2>
+<details class="card"><summary>Is it free?</summary><p>yes. texting Peku is free. you pay the restaurant, same as always.</p></details>
+<details class="card"><summary>Which cities?</summary><p>San Francisco for now. outside SF, Peku will tell you honestly it doesn't know the area well enough.</p></details>
+<details class="card"><summary>What do you do with my data?</summary><p>Peku uses what you text it to find and book spots and to learn your taste. the full details are in the <a href="privacy.html">privacy policy</a>.</p></details>
+<details class="card"><summary>Can it book anywhere?</summary><p>anywhere that takes reservations online. if a spot doesn't, Peku says so and sends you the direct link.</p></details>
 </div>
 </section>
+</main>
 
 <footer>
 <div class="wrap">
@@ -299,7 +308,11 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches)play()
 <button class="close" aria-label="Close" data-close>×</button>
 <h2 id="join-title">Join the waitlist</h2>
 <form>
-<input type="hidden" name="channel" value="imessage">
+<fieldset class="channels"><legend>Text Peku on</legend>
+<label><input type="radio" name="channel" value="imessage" checked><span>iMessage</span></label>
+<label><input type="radio" name="channel" value="whatsapp"><span>WhatsApp</span></label>
+<label><input type="radio" name="channel" value="sms"><span>SMS</span></label>
+</fieldset>
 <label>Phone number<input name="phone" type="tel" autofocus autocomplete="tel" placeholder="+1 415 555 0123" required></label>
 <button type="button" class="link" data-show-code>Have a code?</button>
 <label hidden>Access code<input name="code" autocomplete="off"></label>
@@ -316,8 +329,7 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches)play()
 const dlg=document.getElementById('join'),form=dlg.querySelector('form'),codeBtn=form.querySelector('[data-show-code]'),codeField=form.code.parentElement
 function showCode(){codeBtn.hidden=true;codeField.hidden=false}
 const done=form.nextElementSibling,doneLink=done.querySelector('a'),names={imessage:'iMessage',sms:'SMS',whatsapp:'WhatsApp'}
-// Chips pick the channel; every other button means iMessage. The code button keeps the last pick.
-document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{const o=b.dataset.open;if(o==='code')showCode();else form.channel.value=names[o]?o:'imessage';dlg.showModal()})
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{if(b.dataset.open==='code')showCode();dlg.showModal()})
 dlg.querySelector('[data-close]').onclick=()=>dlg.close()
 dlg.onclose=()=>{if(!form.hidden)return;form.reset();form.hidden=false;done.hidden=true;codeBtn.hidden=false;codeField.hidden=true}
 codeBtn.onclick=()=>{showCode();form.code.focus()}
