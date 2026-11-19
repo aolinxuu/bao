@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/admin", "destination": "https://admin.heypeku.com/admin/dashboard", "permanent": false },
+    { "source": "/admin/:path*", "destination": "https://admin.heypeku.com/admin/:path*", "permanent": false }
+  ]
+}
