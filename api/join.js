@@ -5,7 +5,7 @@ const redis = new Redis({
   token: process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN,
 })
 
-const BOT_WAITLIST_URL = process.env.BOT_WAITLIST_URL ?? 'https://mimi-sf-bot.fly.dev/waitlist'
+const BOT_WAITLIST_URL = process.env.BOT_WAITLIST_URL ?? 'https://peku-sf-bot.fly.dev/waitlist'
 const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER ?? '16283016836'
 // iMessage and SMS both go to the Sendblue line; it answers blue and green bubbles alike.
 const TEXT_NUMBER = process.env.TEXT_NUMBER ?? '18584627637'

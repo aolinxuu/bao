@@ -4,6 +4,6 @@
     { "source": "/admin/:path*", "destination": "https://admin.heypeku.com/admin/:path*", "permanent": false }
   ],
   "rewrites": [
-    { "source": "/i/:path*", "destination": "https://mimi-sf-bot.fly.dev/i/:path*" }
+    { "source": "/i/:path*", "destination": "https://peku-sf-bot.fly.dev/i/:path*" }
   ]
 }
